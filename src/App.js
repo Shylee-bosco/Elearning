@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from 'react'
+import NavBar from './components/UserAdmin/NavBar'
 
-function App() {
+
+const App = (props) => {
+  const [ userLoggedIn, setUserLoggedIn ] = useState(false)
+
+  const handleAuth = () => {
+    setUserLoggedIn(!userLoggedIn)
+  }
+
+  useEffect(() => {
+    if(localStorage.getItem('token')){
+      handleAuth()
+    }
+  }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Simple React</h1>
+          <h4> Welcome to Simple React </h4>
+      <NavBar userLoggedIn={userLoggedIn} handleAuth={handleAuth} />
     </div>
-  );
+  )
 }
 
 export default App;
