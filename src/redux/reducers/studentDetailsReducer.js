@@ -6,17 +6,8 @@ const studentDetailsReducer = (state = studentInitialvalue, action) => {
             return {...action.payload} 
         }
         case 'STUDENT_DETAIL_ID': {
-            // return [...action.payload] 
-            const result = state.map((ele) => {
-                if (ele._id){
-                    return {
-                        ...ele, ...{...action.payload}
-                    }
-                } else {
-                    return ele
-                }
-            })
-            return result
+            return {...action.payload} 
+           
         }
         case 'DETAILS_STUDENT': {
             return [...action.payload] 

@@ -4,13 +4,12 @@ export const asyncLoginStudent = (formData) => {
     return (dispatch) => {
         axios.post('http://dct-e-learning.herokuapp.com/api/students/login', formData)
         .then((response) => {
-            const studentDetails = response.data
-            if(studentDetails.hasOwnProperty('errors')) {
-                alert(studentDetails.message)
+            const loginDetails = response.data
+            if(loginDetails.hasOwnProperty('errors')) {
+                alert(loginDetails.message)
             } else {
                 alert(`Successfully Logged in`)
-                dispatch(loginStudent(studentDetails))
-                console.log('studentLoginResult', studentDetails)
+                localStorage.setItem('token', loginDetails.token)
             }
         })
         .catch((err) => {
@@ -22,10 +21,10 @@ export const asyncLoginStudent = (formData) => {
 }
 
 
-export const loginStudent = (studentDetails) => {
+export const loginStudent = (loginDetails) => {
     return {
         type: 'LOGIN_STUDENT',
-        payload: studentDetails
+        payload: loginDetails
     }
 }
 
@@ -57,15 +56,20 @@ export const detailsStudent = (stuResult) => {
 
 
 export const asyncDetailsStudentId = (id) => {
-    return (dispatch) => {
+    return (dispatch, getState) => {
+        // const store = getState()
+        // console.log('Store', store._id)
         axios.get(`https://dct-e-learning.herokuapp.com/api/students/${id}`, {
             headers: {
                 'Authorization': localStorage.getItem('token')
             }
         })
         .then((response) => {
+            
             const singleStuDetail = response.data
+            //console.log('singleStuDetailIIIIId', singleStuDetail)
             dispatch(studentDetailId(singleStuDetail))
+            console.log('singleStuDetail', singleStuDetail)
         })
         .catch((err) => {
             console.log(err.message)
