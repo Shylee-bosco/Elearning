@@ -6,7 +6,6 @@ import { asyncEditStudent } from "../../redux/actions/studentDetailsAction";
 
 const EditStudentModal = (props) => {
   const { onHide, name, email, id } = props
-  console.log("props", props)
   const dispatch = useDispatch()
   const [ sName, setsName ] = useState(name)
   const [ sEmail, setsEmail ] = useState(email)

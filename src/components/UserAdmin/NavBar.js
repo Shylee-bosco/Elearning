@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { Link, Route, withRouter } from "react-router-dom";
 import Register from './AdminRegisterForm'
 import LoginAdminForm from "./LoginAdminForm";
-import Courses from '../Course/Courses';
-import Lectures from "../Lecture/Lectures";
+import coursesContainer from '../Course/CoursesContainer';
 import PersonalInfo from '../UserAdmin/AdminDetails'
 import StudentRegistration from '../UserAdmin/StudentRegisterForm'
 import StudentInformation from '../UserAdmin/StudentDetails'
@@ -13,6 +12,7 @@ import {  } from "react-bootstrap";
 import Home from "../UserAdmin/Home";
 import StudentIndividualDetail from "../Student/StudentIndividualDetail";
 import StudentLogin from '../Student/LoginStudentForm'
+import LecturesContainer from "../Lecture/LecturesContainer";
 
 const NavBar = (props) => {
     const { userLoggedIn, handleAuth } = props
@@ -39,8 +39,8 @@ const NavBar = (props) => {
                                     <NavMenu><Link to='/info'>Personal Information</Link></NavMenu>
                                 </> 
                                 }
-                                <NavMenu><Link to='/courses'>Courses</Link></NavMenu>
-                                <NavMenu><Link to='/lectures'>Lectures</Link></NavMenu>
+                                <NavMenu><Link to='/coursesContainer'>Courses</Link></NavMenu>
+                                <NavMenu><Link to='/lecturesContainer'>Lectures</Link></NavMenu>
                                 { role === 'student' && <NavMenu><Link to='/studentDetails'>Student Details</Link></NavMenu> }
                                 
                                 <NavMenu><Link onClick={() => {
@@ -79,8 +79,8 @@ const NavBar = (props) => {
                 }} />
                 <Route path='/studentRegisteration' component={StudentRegistration} />
                 <Route path='/studentInformation' component={StudentInformation} />
-                <Route path='/courses' component={Courses} />
-                <Route path='/lectures' component={Lectures} />
+                <Route path='/coursesContainer' component={coursesContainer} /> 
+                <Route path='/lecturesContainer' component={LecturesContainer} />
                 <Route path='/info' component={PersonalInfo} />
                 <Route path='/studentDetails' component={StudentIndividualDetail} />
                 <Route path='/studentLogin' render={(props) => {

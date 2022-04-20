@@ -51,16 +51,6 @@ const StudentDetails = (props) => {
                 </table> :
                 <h2> No Students available</h2>
             }
-            {/* {   
-                <EditStudentModal
-                    name={name}
-                    email={email}
-                    show={modalShow}
-                    onHide={() => setModalShow(false)}
-                    handleSave={handleSave}
-                    
-                />
-            } */}
         </div>
     )
 }

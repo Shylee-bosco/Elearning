@@ -6,6 +6,8 @@ import adminDetailsReducer from '../reducers/adminDetailsReducer'
 import registerStudentReducer from '../reducers/registerStudentReducer'
 import studentDetailsReducer from '../reducers/studentDetailsReducer'
 import adminEditReducer from '../reducers/adminEditReducer'
+import coursesDetailsReducer from '../reducers/CousesDetailsReducer'
+import lecturesDetailsReducer from '../reducers/LectureDetailsReducer'
 
 const configureStore = () => {
     const store = createStore(combineReducers({
@@ -14,7 +16,9 @@ const configureStore = () => {
         adminDetails: adminDetailsReducer,
         registerStudent : registerStudentReducer,
         studentDetails: studentDetailsReducer,
-        editAdmin: adminEditReducer
+        editAdmin: adminEditReducer,
+        coursesDetails: coursesDetailsReducer,
+        lecturesDetails: lecturesDetailsReducer
     }), applyMiddleware(thunk))
     return store
 }
