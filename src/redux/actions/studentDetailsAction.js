@@ -115,7 +115,7 @@ export const editStudent = (stuResult) => {
 export const asyncDeleteStudent = (id) => {
 
     return (dispatch) => {
-        axios.delete(`http://dct-e-learning.herokuapp.com/api/admin/students/${id}`, {
+        axios.delete(`https://dct-e-learning-app.herokuapp.com/api/admin/students/${id}`, {
                 headers: {
                     'Authorization': localStorage.getItem('token')
                 }

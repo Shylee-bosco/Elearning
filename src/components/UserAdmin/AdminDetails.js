@@ -19,13 +19,13 @@ const AdminDetails = (props) => {
         return state.isAdmin
     })
     console.log("isAdmin",isAdmin);
-    // useEffect(() => {
-    //     dispatch(asyncDetailsStudent())
-    // }, [])
+    useEffect(() => {
+        dispatch(asyncDetailsStudent())
+    }, [])
     
-    // useEffect(() => {
-    //     dispatch(asyncEditAdmin())
-    // }, [])
+    useEffect(() => {
+        dispatch(asyncEditAdmin())
+    }, [])
 
     useEffect(() => {
         dispatch(asyncLoginAdmin())

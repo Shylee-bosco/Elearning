@@ -1,4 +1,5 @@
 import axios from "axios"
+import { asyncDetailsAdmin } from "./adminDetailsAction"
 import { asyncCourseDetails } from "./CourseDetailsAction"
 import { asyncDetailsStudent } from "./studentDetailsAction"
 
@@ -15,6 +16,7 @@ export const asyncLoginAdmin = (formData) => {
                 localStorage.setItem('token', adminResult.token)
                 console.log('adminLoginResult', adminResult)
                 dispatch(asyncCourseDetails())
+                // dispatch(asyncDetailsAdmin())
                 dispatch(asyncDetailsStudent())
                 dispatch(isAdmin(true));
             }
