@@ -5,6 +5,9 @@ const coursesDetailsReducer = (store = initialCoursesValue, action) => {
           case "ADD_COURSE": {
                return [...store, { ...action.payload }]
           }
+          case "COURSE_DETAILS": {
+               return [...action.payload]
+          }
           case "DELETE_COURSE": {
                const result = store.filter(ele => ele._id !== action.payload._id)
                return result

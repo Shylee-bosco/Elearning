@@ -1,7 +1,7 @@
 import axios from "axios"
 // import swal from 'sweetalert';
 
-const url = 'http://dct-e-learning.herokuapp.com/api/'
+const url = 'https://dct-e-learning-app.herokuapp.com/api/'
 
 export const asyncAddCourse = (formData) => {
     return (dispatch) => {
@@ -33,10 +33,35 @@ export const addCourse = (newCourseDetails) => {
     }
 }
 
-export const asyncUpdateCourse = (id) => {
+export const asyncCourseDetails = () => {
+    return (dispatch) => {
+        axios.get(`${url}courses`, {
+            headers: {
+                'Authorization': localStorage.getItem('token')
+            }
+        })
+        .then((response) => {
+            const coursesDetail = response.data
+            dispatch(courseDetails(coursesDetail))
+        })
+        .catch((err) => {
+            console.log(err.message)
+        })
+    }
+}
+
+
+export const courseDetails = (coursesDetail) => {
+    return {
+        type: 'COURSE_DETAILS',
+        payload: coursesDetail
+    }
+}
+
+export const asyncUpdateCourse = (formdata, id) => {
 
     return (dispatch) => {
-        axios.put(`${url}courses/${id}`, {
+        axios.put(`${url}courses/${id}`, formdata, {
                 headers: {
                     'Authorization': localStorage.getItem('token')
                 }

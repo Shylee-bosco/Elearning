@@ -71,7 +71,7 @@ const CourseForm = (props) => {
       setAuthor(e.target.value);
     } else if (e.target.name === "releaseDate") {
       setReleaseDate(e.target.value);
-    } else if (e.target.name === "isDeleted") {
+    } else if (e.target.name === "isDelete") {
       setIsDelete(e.target.checked);
     }
   };
@@ -87,6 +87,7 @@ const CourseForm = (props) => {
       level,
       author: author,
       releaseDate: releaseDate,
+      isDelete: isDelete
     };
     dispatch(asyncAddCourse(formData));
     onHide();
@@ -177,8 +178,9 @@ const CourseForm = (props) => {
           <FormHelperText>Required</FormHelperText>
           <br /> <br />
           <Checkbox
-            defaultChecked
+            // defaultChecked
             name="isDelete"
+            checked={isDelete}
             onChange={handleInput}
             color="default"
             inputProps={{ "aria-label": "checkbox with default color" }}

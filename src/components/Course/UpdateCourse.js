@@ -65,9 +65,9 @@ const UpdateCourse = (props) => {
     author,
     releaseDate,
     isDelete,
-    onHide,
-    id,
-  } = props;
+    _id,
+  } = props.details;
+  const { onHide } = props;
   const classes = useStyles();
   const theme = useTheme();
   const courseCatagories = [
@@ -80,7 +80,8 @@ const UpdateCourse = (props) => {
     "mongodb",
   ];
 
-  console.log("Props for update course", props);
+  const levels = ["beginner", "intermediate", "expert"];
+
   const dispatch = useDispatch();
 
   const [updateName, setupdateName] = useState(name);
@@ -110,7 +111,7 @@ const UpdateCourse = (props) => {
       setUpdateAuthor(e.target.value);
     } else if (e.target.name === "releaseDate") {
       setUpdateReleaseDate(e.target.value);
-    } else if (e.target.name === "isDeleted") {
+    } else if (e.target.name === "isDelete") {
       setUpdateIsDelete(e.target.checked);
     }
   };
@@ -125,8 +126,9 @@ const UpdateCourse = (props) => {
       level: updateLevel,
       author: updateAuthor,
       releaseDate: updateReleaseDate,
+      isDelete: updateIsDelete
     };
-    dispatch(asyncUpdateCourse(formData, id));
+    dispatch(asyncUpdateCourse(formData, _id));
     onHide();
   };
 
@@ -208,10 +210,11 @@ const UpdateCourse = (props) => {
             <FormHelperText>Required</FormHelperText>
             <br /> <br />
             <Checkbox
-              defaultChecked
+              // defaultChecked 
               name="isDelete"
               onChange={handleInput}
               color="default"
+              checked={updateIsDelete}
               inputProps={{ "aria-label": "checkbox with default color" }}
             />{" "}
             <span> Is Delete </span>
@@ -225,14 +228,27 @@ const UpdateCourse = (props) => {
               placeholder="Validity"
             />
             <br /> <br />
-            <Form.Control
-              className="form-control"
+            <InputLabel id="demo-simple-select-required-label">Level</InputLabel>
+            <Select
+              labelId="demo-simple-select-required-label"
+              id="demo-simple-select-required"
               value={updateLevel}
               name="level"
-              type="text"
               onChange={handleInput}
-              placeholder="Level"
-            />
+              className={classes.selectEmpty}
+            >
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
+              {levels.map((ele) => {
+                return (
+                  <MenuItem key={ele} value={ele}>
+                    {ele}
+                  </MenuItem>
+                );
+              })}
+            </Select>
+            <FormHelperText>Required</FormHelperText>
             <br /> <br />
             <Form.Control
               className="form-control"

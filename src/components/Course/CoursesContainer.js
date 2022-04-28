@@ -1,15 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import FormLabel from "@material-ui/core/FormLabel";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import Radio from "@material-ui/core/Radio";
-import Paper from "@material-ui/core/Paper";
 import AddCourse from "./AddCourse";
 import { useDispatch, useSelector } from "react-redux";
-import CouseDetails from "./CouseDetails";
-import { asyncDeleteCourse } from "../../redux/actions/CourseDetailsAction";
+import { asyncCourseDetails, asyncDeleteCourse, asyncUpdateCourse } from "../../redux/actions/CourseDetailsAction";
+import CourseDetails from "./CourseDetails";
 
 const CoursesContainer = (props) => {
   const { handleUpdate } = props;
@@ -33,7 +28,12 @@ const CoursesContainer = (props) => {
 
   const coursesDetails = useSelector((state) => {
     return state.coursesDetails;
+    console.log("coursesDetails in container", coursesDetails)
   });
+
+  useEffect(() => {
+    dispatch(asyncCourseDetails())
+  }, [])
 
   const handleDelete = (id) => {
     const confirmDelete = window.confirm(`Are you sure you want to delete?`);
@@ -48,7 +48,7 @@ const CoursesContainer = (props) => {
           {coursesDetails.length > 0 &&
             coursesDetails.map((ele) => (
               <Grid key={ele} item>
-                <CouseDetails
+                <CourseDetails
                   ele={ele}
                   handleDelete={() => {
                     handleDelete(ele._id);

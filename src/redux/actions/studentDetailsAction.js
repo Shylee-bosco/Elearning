@@ -1,8 +1,9 @@
 import axios from "axios"
+import { isAdmin } from "./loginAdminAction"
 
 export const asyncLoginStudent = (formData) => {
     return (dispatch) => {
-        axios.post('http://dct-e-learning.herokuapp.com/api/students/login', formData)
+        axios.post('https://dct-e-learning-app.herokuapp.com/api/students/login', formData)
         .then((response) => {
             const loginDetails = response.data
             if(loginDetails.hasOwnProperty('errors')) {
@@ -10,6 +11,7 @@ export const asyncLoginStudent = (formData) => {
             } else {
                 alert(`Successfully Logged in`)
                 localStorage.setItem('token', loginDetails.token)
+                dispatch(isAdmin(false));
             }
         })
         .catch((err) => {
@@ -30,7 +32,7 @@ export const loginStudent = (loginDetails) => {
 
 export const asyncDetailsStudent = () => {
     return (dispatch) => {
-        axios.get('https://dct-e-learning.herokuapp.com/api/admin/students', {
+        axios.get('https://dct-e-learning-app.herokuapp.com/api/admin/students', {
                 headers: {
                     'Authorization': localStorage.getItem('token')
                 }
@@ -59,7 +61,7 @@ export const asyncDetailsStudentId = (id) => {
     return (dispatch, getState) => {
         // const store = getState()
         // console.log('Store', store._id)
-        axios.get(`https://dct-e-learning.herokuapp.com/api/students/${id}`, {
+        axios.get(`https://dct-e-learning-app.herokuapp.com/api/students/${id}`, {
             headers: {
                 'Authorization': localStorage.getItem('token')
             }
@@ -88,7 +90,7 @@ export const studentDetailId = (singleStuDetail) => {
 
 export const asyncEditStudent = (formData, id) => {
     return (dispatch) => {
-        axios.put(`https://dct-e-learning.herokuapp.com/api/students/${id}`, formData, {
+        axios.put(`https://dct-e-learning-app.herokuapp.com/api/students/${id}`, formData, {
                 headers: {
                     'Authorization': localStorage.getItem('token')
                 }

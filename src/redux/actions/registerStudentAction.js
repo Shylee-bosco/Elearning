@@ -3,7 +3,7 @@ import axios from "axios"
 export const asyncRegisterStudent = (formData) => {
     
     return (dispatch) => {
-        axios.post('http://dct-e-learning.herokuapp.com/api/admin/students', formData,  {
+        axios.post('https://dct-e-learning-app.herokuapp.com/api/admin/students', formData,  {
             headers: {
                 'Authorization': localStorage.getItem('token')
                 }

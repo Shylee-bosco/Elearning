@@ -3,7 +3,7 @@ import axios from "axios"
 export const asyncRegisterAdmin = (formData) => {
     
     return (dispatch) => {
-        axios.post('http://dct-e-learning.herokuapp.com/api/admin/register', formData)
+        axios.post('https://dct-e-learning-app.herokuapp.com/api/admin/register', formData)
         .then((response) => {
             const adminResult = response.data
             if(adminResult.hasOwnProperty('errors')) {

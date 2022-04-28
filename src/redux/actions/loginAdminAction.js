@@ -1,8 +1,10 @@
 import axios from "axios"
+import { asyncCourseDetails } from "./CourseDetailsAction"
+import { asyncDetailsStudent } from "./studentDetailsAction"
 
 export const asyncLoginAdmin = (formData) => {
     return (dispatch) => {
-        axios.post('http://dct-e-learning.herokuapp.com/api/admin/login', formData)
+        axios.post('https://dct-e-learning-app.herokuapp.com/api/admin/login', formData)
         .then((response) => {
             const adminResult = response.data
             if(adminResult.hasOwnProperty('errors')) {
@@ -12,13 +14,14 @@ export const asyncLoginAdmin = (formData) => {
                 dispatch(loginAdmin(adminResult))
                 localStorage.setItem('token', adminResult.token)
                 console.log('adminLoginResult', adminResult)
+                dispatch(asyncCourseDetails())
+                dispatch(asyncDetailsStudent())
+                dispatch(isAdmin(true));
             }
         })
         .catch((err) => {
             console.log(err.message)
         })
-        
-         console.log('LoginForm',formData)
     }
 }
 
@@ -28,4 +31,8 @@ export const loginAdmin = (adminDetails) => {
         type: 'LOGIN_ADMIN',
         payload: adminDetails
     }
+}
+
+export const isAdmin = (state=false) => {
+    return state
 }

@@ -5,6 +5,9 @@ const lectureDetailsReducer = (store = initialLecturesValue, action) => {
           case "ADD_LECTURE": {
                return [...store, { ...action.payload }]
           }
+          case "LECTURE_DETAILS": {
+               return [...action.payload]
+          }
           case "DELETE_LECTURE": {
                const result = store.filter(ele => ele._id !== action.payload._id)
                return result

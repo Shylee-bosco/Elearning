@@ -13,6 +13,7 @@ import Home from "../UserAdmin/Home";
 import StudentIndividualDetail from "../Student/StudentIndividualDetail";
 import StudentLogin from '../Student/LoginStudentForm'
 import LecturesContainer from "../Lecture/LecturesContainer";
+import EnrolledCoursesContainer from "../EnrolledCouses/EnrolledCoursesContainer";
 
 const NavBar = (props) => {
     const { userLoggedIn, handleAuth } = props
@@ -23,7 +24,6 @@ const NavBar = (props) => {
       setRole(result)
     };
 
-    // console.log('handleRoleChange', handleRoleChange)
     
     return(
         <div>
@@ -40,6 +40,7 @@ const NavBar = (props) => {
                                 </> 
                                 }
                                 <NavMenu><Link to='/coursesContainer'>Courses</Link></NavMenu>
+                                <NavMenu><Link to='/enrolledCoursesContainer'>Enrolled Courses</Link></NavMenu>
                                 <NavMenu><Link to='/lecturesContainer'>Lectures</Link></NavMenu>
                                 { role === 'student' && <NavMenu><Link to='/studentDetails'>Student Details</Link></NavMenu> }
                                 
@@ -80,6 +81,7 @@ const NavBar = (props) => {
                 <Route path='/studentRegisteration' component={StudentRegistration} />
                 <Route path='/studentInformation' component={StudentInformation} />
                 <Route path='/coursesContainer' component={coursesContainer} /> 
+                <Route path='/enrolledCoursesContainer' component={EnrolledCoursesContainer} /> 
                 <Route path='/lecturesContainer' component={LecturesContainer} />
                 <Route path='/info' component={PersonalInfo} />
                 <Route path='/studentDetails' component={StudentIndividualDetail} />

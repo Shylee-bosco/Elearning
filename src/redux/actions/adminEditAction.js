@@ -3,7 +3,7 @@ import { detailsAdmin } from "./adminDetailsAction"
 
 export const asyncEditAdmin = (formData) => {
     return (dispatch) => {
-        axios.put('https://dct-e-learning.herokuapp.com/api/admin', formData, {
+        axios.put('https://dct-e-learning-app.herokuapp.com/api/admin', formData, {
                 headers: {
                     'Authorization': localStorage.getItem('token')
                 }

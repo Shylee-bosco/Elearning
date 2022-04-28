@@ -2,7 +2,7 @@ import axios from "axios"
 
 export const asyncDetailsAdmin = () => {
     return (dispatch) => {
-        axios.get('https://dct-e-learning.herokuapp.com/api/admin/account', {
+        axios.get('https://dct-e-learning-app.herokuapp.com/api/admin/account', {
                 headers: {
                     'Authorization': localStorage.getItem('token')
                 }

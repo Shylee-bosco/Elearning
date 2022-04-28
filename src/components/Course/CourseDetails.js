@@ -8,7 +8,7 @@ import {
 } from "@material-ui/core";
 import React, { useState } from "react";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
 import UpdateCourse from "./UpdateCourse";
@@ -43,9 +43,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CouseDetails = ({ handleDelete, ele, handleUpdate }) => {
+const CourseDetails = ({ handleDelete, ele, handleUpdate }) => {
   const classes = useStyles();
   const theme = useTheme();
+  const dispatch = useDispatch();
 
   const [modalShow, setModalShow] = useState(false);
 
@@ -53,7 +54,11 @@ const CouseDetails = ({ handleDelete, ele, handleUpdate }) => {
     return state.coursesDetails;
   });
 
-  console.log("coursesDetailsIn details Form", coursesDetails);
+  const adminDetails = useSelector((state) => {
+    return state.adminDetails;
+  });
+  
+  console.log("coursesDetailsIn details Form", adminDetails.role);
 
   return (
     <>
@@ -61,20 +66,32 @@ const CouseDetails = ({ handleDelete, ele, handleUpdate }) => {
         <Card className={classes.root}>
           <div className={classes.details}>
             <CardContent className={classes.content}>
-              <Typography component="h5" variant="h5">
-                {ele.name}
-              </Typography>
-              <Typography variant="subtitle1" color="textSecondary">
-                <span> Author: </span> {ele.author}
-              </Typography>
-              <Typography variant="subtitle1" color="textSecondary">
-                <span> Category: </span> {ele.category}
-              </Typography>
-              <Typography variant="subtitle1" color="textSecondary">
-                <span> Duration: </span> {ele.duration} <span> Months </span>
-              </Typography>
-              <br />
-              <div className={classes.controls}>
+                  <Typography component="h5" variant="h5">
+                    {ele.name}
+                  </Typography>
+                  {/* <Typography variant="subtitle1" color="textSecondary">
+                    <span> Description: </span> {ele.description}
+                  </Typography> */}
+                  <Typography variant="subtitle1" color="textSecondary">
+                    <span> Duration: </span> {ele.duration}
+                  </Typography>
+                  <Typography variant="subtitle1" color="textSecondary">
+                    <span> Release Date: </span> {ele.releaseDate}
+                  </Typography>
+                  <Typography variant="subtitle1" color="textSecondary">
+                    <span> Category: </span> {ele.category}
+                  </Typography>
+                  <Typography variant="subtitle1" color="textSecondary">
+                    <span> Validity: </span> {ele.validity} <span> Months </span>
+                  </Typography>
+                  <Typography variant="subtitle1" color="textSecondary">
+                    <span> Level: </span> {ele.level}
+                  </Typography>
+                  <Typography variant="subtitle1" color="textSecondary">
+                    <span> Author: </span> {ele.author}
+                  </Typography>
+                  <br />
+              { adminDetails.role === 'admin' && <div className={classes.controls}>
                 <IconButton>
                   <EditIcon
                     color="primary"
@@ -85,6 +102,7 @@ const CouseDetails = ({ handleDelete, ele, handleUpdate }) => {
                   <UpdateCourse
                     show={modalShow}
                     onHide={() => setModalShow(false)}
+                    details={ele}
                     // handleSave={handleSave}
                   />
                 }
@@ -96,7 +114,8 @@ const CouseDetails = ({ handleDelete, ele, handleUpdate }) => {
                     }}
                   />
                 </IconButton>
-              </div>
+              </div> 
+            }
             </CardContent>
           </div>
         </Card>
@@ -105,4 +124,4 @@ const CouseDetails = ({ handleDelete, ele, handleUpdate }) => {
   );
 };
 
-export default CouseDetails;
+export default CourseDetails;
