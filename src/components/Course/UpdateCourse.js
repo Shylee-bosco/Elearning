@@ -67,6 +67,7 @@ const UpdateCourse = (props) => {
     isDelete,
     _id,
   } = props.details;
+
   const { onHide } = props;
   const classes = useStyles();
   const theme = useTheme();
@@ -87,13 +88,13 @@ const UpdateCourse = (props) => {
   const [updateName, setupdateName] = useState(name);
   const [updateDescription, setUpdateDescription] = useState(description);
   const [updateDuration, setUpdateDuration] = useState(duration);
-  const [updateReleaseDate, setUpdateReleaseDate] = useState(releaseDate);
+  const [updateReleaseDate, setUpdateReleaseDate] = useState(new Date(releaseDate).toLocaleDateString('en-CA'));
   const [updateCategory, setUpdateCategory] = useState(category);
   const [updateValidity, setUpdateValidity] = useState(validity);
   const [updateLevel, setUpdateLevel] = useState(level);
   const [updateAuthor, setUpdateAuthor] = useState(author);
   const [updateIsDelete, setUpdateIsDelete] = useState(isDelete);
-
+  
   const handleInput = (e) => {
     if (e.target.name === "name") {
       setupdateName(e.target.value);
@@ -176,7 +177,7 @@ const UpdateCourse = (props) => {
             <TextField
               label="Release Date"
               type="date"
-              defaultValue={updateReleaseDate}
+              value={updateReleaseDate}
               name="releaseDate"
               onChange={handleInput}
               InputLabelProps={{
