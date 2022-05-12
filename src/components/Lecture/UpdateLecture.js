@@ -13,6 +13,7 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { asyncUpdateLecture } from "../../redux/actions/LectureDetailsAction";
 
 const UpdateLecture = (props) => {
+
   const useStyles = makeStyles((theme) => ({
     root: {
       display: "inline-flex",
@@ -55,81 +56,66 @@ const UpdateLecture = (props) => {
     },
   }));
 
-  const {
-    name,
-    description,
-    duration,
-    category,
-    validity,
-    level,
-    author,
-    releaseDate,
-    isDelete,
-    onHide,
-    id,
-  } = props;
-  const classes = useStyles();
-  const theme = useTheme();
-  const courseCatagories = [
-    "HTML",
-    "CSS",
-    "javascript",
-    "reactjs",
-    "nodejs",
-    "expressjs",
-    "mongodb",
-  ];
-
-  console.log("Props for update course", props);
   const dispatch = useDispatch();
+  const { onHide, lectureId } = props;
 
-  const [updateName, setupdateName] = useState(name);
-  const [updateDescription, setUpdateDescription] = useState(description);
-  const [updateDuration, setUpdateDuration] = useState(duration);
-  const [updateReleaseDate, setUpdateReleaseDate] = useState(releaseDate);
-  const [updateCategory, setUpdateCategory] = useState(category);
-  const [updateValidity, setUpdateValidity] = useState(validity);
-  const [updateLevel, setUpdateLevel] = useState(level);
-  const [updateAuthor, setUpdateAuthor] = useState(author);
-  const [updateIsDelete, setUpdateIsDelete] = useState(isDelete);
+  const {  title,
+    description,
+    assetType,
+    assetURL,
+    comments,
+    students,
+    isDelete,
+    courseName,
+    course,
+    _id
+ } = props.details
+ 
+ console.log(props.details,'-------')
+  const [ updateTitle, setUpdateTitle] = useState(title);
+  const [ updateDescription, setUpdateDescription] = useState(description);
+  const [ updateAssetType, setUpdateAssetType] = useState(assetType);
+  const [ updateAssetURL, setUpdateAssetURL] = useState(assetURL);
+  const [ updateComments, setUpdateComments] = useState(comments);
+  const [ updateStudents, setUpdateStudents] = useState(students);
+  const [ updateIsDelete, setUpdateIsDelete] = useState(isDelete);
+
+  const classes = useStyles();
+
+  const assetTypes = ["video", "audio", "text", "pdf", "img"];
 
   const handleInput = (e) => {
-    if (e.target.name === "name") {
-      setupdateName(e.target.value);
+    if (e.target.name === "title") {
+      setUpdateTitle(e.target.value);
     } else if (e.target.name === "description") {
       setUpdateDescription(e.target.value);
-    } else if (e.target.name === "duration") {
-      setUpdateDuration(e.target.value);
-    } else if (e.target.name === "category") {
-      setUpdateCategory(e.target.value);
-    } else if (e.target.name === "validity") {
-      setUpdateValidity(e.target.value);
-    } else if (e.target.name === "level") {
-      setUpdateLevel(e.target.value);
-    } else if (e.target.name === "author") {
-      setUpdateAuthor(e.target.value);
-    } else if (e.target.name === "releaseDate") {
-      setUpdateReleaseDate(e.target.value);
-    } else if (e.target.name === "isDeleted") {
+    } else if (e.target.name === "assetType") {
+      setUpdateAssetType(e.target.value);
+    } else if (e.target.name === "assetURL") {
+      setUpdateAssetURL(e.target.value);
+    } else if (e.target.name === "comments") {
+      setUpdateComments(e.target.value);
+    } else if (e.target.name === "students") {
+      setUpdateStudents(e.target.value);
+    } else if (e.target.name === "isDelete") {
       setUpdateIsDelete(e.target.checked);
     }
-  };
-
+  } 
   const handleUpdate = () => {
     const formData = {
-      name: updateName,
+      title: updateTitle,
       description: updateDescription,
-      duration: updateDuration,
-      category: updateCategory,
-      validity: updateValidity,
-      level: updateLevel,
-      author: updateAuthor,
-      releaseDate: updateReleaseDate,
+      assetType: updateAssetType,
+      assetURL: updateAssetURL,
+      comments: updateComments,
+      students: updateStudents,
+      isDelete: updateIsDelete,
+      course: courseName,
     };
-    dispatch(asyncUpdateLecture(formData, id));
-    onHide();
-  };
 
+    dispatch(asyncUpdateLecture(formData, lectureId, _id));
+    onHide();
+  }  
   return (
     <>
       <Modal
@@ -140,110 +126,90 @@ const UpdateLecture = (props) => {
       >
         <>
           <Modal.Header closeButton>
-            <Modal.Title>Update Course</Modal.Title>
+            <Modal.Title>Update Lecture</Modal.Title>
           </Modal.Header>
 
           <Modal.Body>
-            <Form.Control
-              className="form-control"
-              value={updateName}
-              name="name"
-              type="text"
-              onChange={handleInput}
-              placeholder="Name"
-            />
-            <br /> <br />
-            <Form.Control
-              className="form-control"
-              value={updateDescription}
-              name="description"
-              type="textarea"
-              onChange={handleInput}
-              placeholder="Description"
-            />
-            <br /> <br />
-            <Form.Control
-              className="form-control"
-              value={updateDuration}
-              name="duration"
-              type="text"
-              onChange={handleInput}
-              placeholder="Duration"
-            />
-            <br /> <br />
-            <TextField
-              label="Release Date"
-              type="date"
-              defaultValue={updateReleaseDate}
-              name="releaseDate"
-              onChange={handleInput}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              className={classes.selectEmpty}
-            />
-            <br /> <br />
-            <InputLabel id="demo-simple-select-required-label">
-              Category
-            </InputLabel>
-            <Select
-              labelId="demo-simple-select-required-label"
-              id="demo-simple-select-required"
-              value={updateCategory}
-              name="category"
-              onChange={handleInput}
-              className={classes.selectEmpty}
-            >
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              {courseCatagories.map((ele) => {
-                return (
-                  <MenuItem key={ele} value={ele}>
-                    {ele}
-                  </MenuItem>
-                );
-              })}
-            </Select>
-            <FormHelperText>Required</FormHelperText>
-            <br /> <br />
-            <Checkbox
-              defaultChecked
-              name="isDelete"
-              onChange={handleInput}
-              color="default"
-              inputProps={{ "aria-label": "checkbox with default color" }}
-            />{" "}
-            <span> Is Delete </span>
-            <br /> <br />
-            <Form.Control
-              className="form-control"
-              value={updateValidity}
-              name="validity"
-              type="text"
-              onChange={handleInput}
-              placeholder="Validity"
-            />
-            <br /> <br />
-            <Form.Control
-              className="form-control"
-              value={updateLevel}
-              name="level"
-              type="text"
-              onChange={handleInput}
-              placeholder="Level"
-            />
-            <br /> <br />
-            <Form.Control
-              className="form-control"
-              value={updateAuthor}
-              name="author"
-              type="text"
-              onChange={handleInput}
-              placeholder="Author"
-            />
-            <br /> <br />
-          </Modal.Body>
+          <Form.Control
+            className="form-control"
+            value={updateTitle}
+            name="title"
+            type="text"
+            onChange={handleInput}
+            placeholder="Title"
+          />
+          <br /> <br />
+          <Form.Control
+            className="form-control"
+            value={updateDescription}
+            name="description"
+            type="textarea"
+            onChange={handleInput}
+            placeholder="Description"
+          />
+          <br /> <br />
+          <InputLabel id="demo-simple-select-required-label">
+            Asset Type
+          </InputLabel>
+          <Select
+            labelId="demo-simple-select-required-label"
+            id="demo-simple-select-required"
+            value={updateAssetType}
+            name="assetType"
+            onChange={handleInput}
+            className={classes.selectEmpty}
+          >
+            <MenuItem value="">
+              <em>None</em>
+            </MenuItem>
+            {assetTypes.map((ele) => {
+              return (
+                <MenuItem key={ele} value={ele}>
+                  {ele}
+                </MenuItem>
+              );
+            })}
+          </Select>
+          <FormHelperText>Required</FormHelperText>
+          <br /> <br />
+          <Form.Control
+            className="form-control"
+            value={updateAssetURL}
+            name="assetURL"
+            type="text"
+            onChange={handleInput}
+            placeholder="Asset URL"
+          />
+          <br /> <br />
+          <Form.Control
+            as="textarea"
+            rows={3}
+            value={updateComments}
+            name="comments"
+            onChange={handleInput}
+            placeholder="Comments"
+          />
+          <br /> <br />
+          <Form.Control
+            className="form-control"
+            value={updateStudents}
+            name="students"
+            type="text"
+            onChange={handleInput}
+            placeholder="Students"
+          />
+          <br /> <br />
+          <Checkbox
+            // defaultChecked
+            name="isDelete"
+            onChange={handleInput}
+            color="default"
+            checked={updateIsDelete}
+            inputProps={{ "aria-label": "checkbox with default color" }}
+          />{" "}
+          <span> Is Delete </span>
+          <br /> <br />
+        </Modal.Body>
           <Modal.Footer>
             <Button
               variant="primary"
@@ -261,4 +227,4 @@ const UpdateLecture = (props) => {
   );
 };
 
-export default UpdateLecture;
+export default UpdateLecture
