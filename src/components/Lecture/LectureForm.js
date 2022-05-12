@@ -10,10 +10,13 @@ import {
   Select,
   TextField,
 } from "@material-ui/core";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { asyncAddLecture } from "../../redux/actions/LectureDetailsAction";
 
 const LectureForm = (props) => {
+
+  const { courseName, id } = props
+
   const useStyles = makeStyles((theme) => ({
     formControl: {
       margin: theme.spacing(1),
@@ -35,7 +38,7 @@ const LectureForm = (props) => {
   const [assetURL, setAssetURL] = useState("");
   const [comments, setComments] = useState([]);
   const [students, setStudents] = useState([]);
-  const [course, setCourse] = useState("");
+  // const [course, setCourse] = useState(courseName);
   const [isDelete, setIsDelete] = useState(false);
 
   const classes = useStyles();
@@ -58,9 +61,7 @@ const LectureForm = (props) => {
       setComments(e.target.value);
     } else if (e.target.name === "students") {
       setStudents(e.target.value);
-    } else if (e.target.name === "course") {
-      setCourse(e.target.value);
-    } else if (e.target.name === "isDeleted") {
+    } else if (e.target.name === "isDelete") {
       setIsDelete(e.target.checked);
     }
   };
@@ -72,14 +73,25 @@ const LectureForm = (props) => {
       description: description,
       assetType: assetType,
       assetURL: assetURL,
-      comments: [comments],
-      students: [students],
-      course: course,
+      comments: [],
+      students: [],
+      course: courseName,
       isDelete: isDelete,
     };
-    dispatch(asyncAddLecture(formData));
+    dispatch(asyncAddLecture(formData, id));
     onHide();
+    setTitle("");
+    setDescription("");
+    setAssetType("");
+    setAssetURL("");
+    setComments("");
+    setStudents("");
+    setIsDelete(false);
   };
+
+  const coursesDetails = useSelector((state) => {
+    return state.coursesDetails;
+  });
 
   return (
     <Modal
@@ -90,7 +102,7 @@ const LectureForm = (props) => {
     >
       <>
         <Modal.Header closeButton>
-          <Modal.Title>Lecture</Modal.Title>
+          <Modal.Title>Add Lecture</Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
@@ -163,17 +175,8 @@ const LectureForm = (props) => {
             placeholder="Students"
           />
           <br /> <br />
-          <Form.Control
-            className="form-control"
-            value={course}
-            name="course"
-            type="text"
-            onChange={handleInput}
-            placeholder="Course"
-          />
-          <br /> <br />
           <Checkbox
-            defaultChecked
+            // defaultChecked
             name="isDelete"
             onChange={handleInput}
             color="default"
