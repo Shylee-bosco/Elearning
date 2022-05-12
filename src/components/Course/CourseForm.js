@@ -32,7 +32,7 @@ const CourseForm = (props) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [duration, setDuration] = useState("");
-  const [releaseDate, setReleaseDate] = useState(new Date());
+  const [releaseDate, setReleaseDate] = useState(new Date().toLocaleDateString('en-CA'));
   const [category, setCategory] = useState("None");
   const [validity, setValidity] = useState("");
   const [level, setLevel] = useState("");
