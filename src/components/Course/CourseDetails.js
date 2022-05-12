@@ -1,9 +1,11 @@
 import {
+  Button,
+  ButtonBase,
   Card,
   CardContent,
-  CardMedia,
   Container,
   IconButton,
+  Tooltip,
   Typography,
 } from "@material-ui/core";
 import React, { useState } from "react";
@@ -12,6 +14,8 @@ import { useDispatch, useSelector } from "react-redux";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
 import UpdateCourse from "./UpdateCourse";
+import NoteAddIcon from '@material-ui/icons/NoteAdd';
+import LectureForm from "../Lecture/LectureForm";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -49,6 +53,7 @@ const CourseDetails = ({ handleDelete, ele, handleUpdate }) => {
   const dispatch = useDispatch();
 
   const [modalShow, setModalShow] = useState(false);
+  const [modalShowLecture, setModalShowLecture] = useState(false);
 
   const coursesDetails = useSelector((state) => {
     return state.coursesDetails;
@@ -57,9 +62,19 @@ const CourseDetails = ({ handleDelete, ele, handleUpdate }) => {
   const adminDetails = useSelector((state) => {
     return state.adminDetails;
   });
-  
-  console.log("coursesDetailsIn details Form", adminDetails.role);
 
+  const studentDetails = useSelector((state) => {
+    return state.studentDetails;
+  });
+  
+//   const isAdmin = useSelector((state) => { 
+//     return state.isAdmin
+// })
+// console.log("isAdmin",isAdmin);
+
+  const handleEnroll = () => {
+    
+  }
   return (
     <>
       <Container>
@@ -103,7 +118,6 @@ const CourseDetails = ({ handleDelete, ele, handleUpdate }) => {
                     show={modalShow}
                     onHide={() => setModalShow(false)}
                     details={ele}
-                    // handleSave={handleSave}
                   />
                 }
                 <IconButton>
@@ -114,6 +128,31 @@ const CourseDetails = ({ handleDelete, ele, handleUpdate }) => {
                     }}
                   />
                 </IconButton>
+                <Tooltip title="Add a Lecture">
+
+                
+                <IconButton>
+                  <NoteAddIcon 
+                    onClick={() => setModalShowLecture(true)}
+                  />
+                 
+                </IconButton>
+                </Tooltip>
+                {
+                  <LectureForm
+                    id={adminDetails._id}
+                    show={modalShowLecture}
+                    onHide={() => setModalShowLecture(false)}
+                    // details={ele}
+                    courseName={ele.name}
+                    
+                  />
+                }
+                <Button variant="contained" color="success" onClick={() => {
+                  handleEnroll()
+                }}>
+                    Enroll
+                </Button>
               </div> 
             }
             </CardContent>
