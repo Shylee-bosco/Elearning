@@ -30,6 +30,9 @@ const studentDetailsReducer = (state = studentInitialvalue, action) => {
             })
             return result
         }
+        case 'LOGOUT_STUDENT': {
+            return studentInitialvalue
+        }
         default: {
             return [...state]
         }
