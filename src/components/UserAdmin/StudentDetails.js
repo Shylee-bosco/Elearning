@@ -26,6 +26,10 @@ const StudentDetails = (props) => {
         }
     }
     
+    const handleEnroll = () => {
+
+    }
+
     return (
         <div>
             <h2> STUDENTS INFORMATION </h2> 
@@ -43,7 +47,7 @@ const StudentDetails = (props) => {
                             studentDetails.map((ele,i) => {
                                 return (
                                     <StudentValue key={i} ele={ele} handleDelete={() => {
-                                        handleDelete(ele._id)}}/>  
+                                        handleDelete(ele._id)}} />  
                                 )
                             })
                         }
