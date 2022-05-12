@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import EditStudentModal from "./EditStudentModal"
 import { Button } from "react-bootstrap";
 
-const StudentValue = ({ ele, handleSave, handleDelete }) => {
+const StudentValue = ({ ele, handleSave, handleDelete, handleEnroll }) => {
      const [modalShow, setModalShow] = useState(false);
 
      console.log('page', ele)
@@ -28,6 +28,14 @@ const StudentValue = ({ ele, handleSave, handleDelete }) => {
                 <td> <Button onClick={() => {
                     handleDelete()
                 }}> Delete </Button> </td>
+
+                <td>
+                <Button variant="contained" color="success" onClick={() => {
+                  handleEnroll()
+                }}>
+                    Enroll
+                </Button>
+                </td>
             </tr> 
         </>
 
