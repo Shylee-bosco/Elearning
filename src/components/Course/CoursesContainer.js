@@ -8,6 +8,7 @@ import CourseDetails from "./CourseDetails";
 
 const CoursesContainer = (props) => {
   const { handleUpdate } = props;
+  
   const dispatch = useDispatch();
 
   const useStyles = makeStyles((theme) => ({
@@ -28,7 +29,6 @@ const CoursesContainer = (props) => {
 
   const coursesDetails = useSelector((state) => {
     return state.coursesDetails;
-    console.log("coursesDetails in container", coursesDetails)
   });
 
   useEffect(() => {
