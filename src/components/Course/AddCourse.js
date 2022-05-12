@@ -5,6 +5,7 @@ import CardContent from "@material-ui/core/CardContent";
 import AddIcon from "@material-ui/icons/Add";
 import { Container } from "@material-ui/core";
 import CourseForm from "./CourseForm";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,17 +42,21 @@ const AddCourse = (props) => {
   const theme = useTheme();
   const [modalShow, setModalShow] = useState(false);
 
+  const adminDetails = useSelector((state) => {
+    return state.adminDetails;
+  });
+
   return (
     <Container>
       <Card className={classes.root}>
         <div className={classes.details}>
           <CardContent className={classes.content}>
-            <AddIcon
-              className={classes.addIcon}
-              onClick={() => setModalShow(true)}
-            />
-            <br />
-            <span> Add A New Course </span>
+                <AddIcon
+                  className={classes.addIcon}
+                  onClick={() => setModalShow(true)}
+                />
+                <br />
+                <span> Add A New Course </span>
             <CourseForm show={modalShow} onHide={() => setModalShow(false)} />
           </CardContent>
         </div>
