@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import { useDispatch, useSelector } from "react-redux";
 import LectureDetails from "./LectureDetails";
-import { asyncDeleteLecture } from "../../redux/actions/LectureDetailsAction";
-import AddLecture from "./AddLecture";
+import { asyncDeleteLecture, asyncLectureDetails } from "../../redux/actions/LectureDetailsAction";
+import { asyncDetailsAdmin } from "../../redux/actions/adminDetailsAction";
 
 const LecturesContainer = (props) => {
   const { handleUpdate } = props;
@@ -26,34 +26,46 @@ const LecturesContainer = (props) => {
   //   const [spacing, setSpacing] = React.useState(2);
   const classes = useStyles();
 
-  const lectureDetails = useSelector((state) => {
+  const detailsLecture = useSelector((state) => {
     return state.lecturesDetails;
   });
 
-  const handleDelete = (id) => {
+  const adminDetails = useSelector((state) => {
+    return state.adminDetails;
+  });
+
+  useEffect(() => {
+    dispatch(asyncLectureDetails(adminDetails._id))
+  },[])
+
+  console.log('detailsLectures-----', detailsLecture)
+
+
+  const handleDelete = (courseId, id) => {
     const confirmDelete = window.confirm(`Are you sure you want to delete?`);
     if (confirmDelete) {
-      dispatch(asyncDeleteLecture(id));
+      dispatch(asyncDeleteLecture(courseId, id));
     }
   };
   return (
     <Grid container className={classes.root} spacing={2}>
       <Grid item xs={12}>
         <Grid container justifyContent="center" spacing="5">
-          {lectureDetails.length > 0 &&
-            lectureDetails.map((ele) => (
+          {detailsLecture.length > 0 &&
+            detailsLecture.map((ele) => (
               <Grid key={ele} item>
-                <LectureDetails
-                  ele={ele}
-                  handleDelete={() => {
-                    handleDelete(ele._id);
-                  }}
-                  handleUpdate={handleUpdate}
-                />
+                {console.log(ele.course)}
+                  <LectureDetails
+                    lectureId={ele._id}
+                    ele={ele}
+                    handleDelete={() => {
+                      handleDelete(ele.course, ele._id);
+                    }}
+                    handleUpdate={handleUpdate}
+                  />
               </Grid>
-            ))}
-          <Grid>
-            <AddLecture />
+              ))}
+            <Grid>
           </Grid>
         </Grid>
       </Grid>
