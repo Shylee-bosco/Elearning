@@ -5,7 +5,6 @@ const registerStudentReducer = (state = registerInitialValue, action) => {
         case 'SET_STUDENT': {
             return [...state, { ...action.payload }]
         }
-        
         default: {
             return [...state]
         }
