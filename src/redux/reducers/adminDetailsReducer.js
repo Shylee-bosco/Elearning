@@ -5,7 +5,12 @@ const adminDetailsReducer = (state = adminInitialvalue, action) => {
         case 'DETAILS_ADMIN': {
             return {...action.payload} 
         }
-    
+        // case 'LOGIN_ADMIN': {
+        //     return { ...action.payload }
+        // }
+        // case 'LOGOUT_ADMIN': {
+        //     return adminInitialvalue
+        // }
         default: {
             return {...state}
         }
