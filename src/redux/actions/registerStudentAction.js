@@ -20,8 +20,6 @@ export const asyncRegisterStudent = (formData) => {
         .catch((err) => {
             console.log(err.message)
         })
-        
-         console.log('RegisterStudentForm',formData)
     }
 }
 
