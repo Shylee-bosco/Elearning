@@ -1,5 +1,7 @@
 import axios from "axios"
-import { isAdmin } from "./loginAdminAction"
+import isAdminFlag from "../reducers/commonReducer"
+import isAdmin from "../reducers/commonReducer"
+import { logoutAdmin } from "./loginAdminAction"
 
 export const asyncLoginStudent = (formData) => {
     return (dispatch) => {
@@ -11,14 +13,13 @@ export const asyncLoginStudent = (formData) => {
             } else {
                 alert(`Successfully Logged in`)
                 localStorage.setItem('token', loginDetails.token)
-                dispatch(isAdmin(false));
+                localStorage.setItem('role', 'admin')
+                dispatch(isAdminFlag(false));
             }
         })
         .catch((err) => {
             console.log(err.message)
         })
-        
-         console.log('StudentLoginForm',formData)
     }
 }
 
@@ -39,7 +40,6 @@ export const asyncDetailsStudent = () => {
             })
             .then((response) => {
                 const stuResult = response.data
-                console.log('getstuResult', stuResult)
                 dispatch(detailsStudent(stuResult))
             })
             .catch((err) => {
@@ -59,8 +59,6 @@ export const detailsStudent = (stuResult) => {
 
 export const asyncDetailsStudentId = (id) => {
     return (dispatch, getState) => {
-        // const store = getState()
-        // console.log('Store', store._id)
         axios.get(`https://dct-e-learning-app.herokuapp.com/api/students/${id}`, {
             headers: {
                 'Authorization': localStorage.getItem('token')
@@ -69,9 +67,7 @@ export const asyncDetailsStudentId = (id) => {
         .then((response) => {
             
             const singleStuDetail = response.data
-            //console.log('singleStuDetailIIIIId', singleStuDetail)
             dispatch(studentDetailId(singleStuDetail))
-            console.log('singleStuDetail', singleStuDetail)
         })
         .catch((err) => {
             console.log(err.message)
@@ -127,6 +123,8 @@ export const asyncDeleteStudent = (id) => {
             } else {
                 alert(`Successfully deleted student`)
                 dispatch(deleteStudent(studentDetails))
+                localStorage.setItem('role', 'student')
+                localStorage.setItem('token', studentDetails.token)
             }
         })
         .catch((err) => {
@@ -140,4 +138,21 @@ export const deleteStudent = (stuResult) => {
         type: 'DELETE_STUDENT',
         payload: stuResult
     }
+}
+
+export const logoutStudent = () => {
+    return {
+        type: 'LOGOUT_STUDENT'
+    }
+}
+
+
+export const asyncStudentLogout =() => {
+  //remove token
+  //empty studentdetials
+  // empty course details
+
+  return (dispatch) => {
+      dispatch(logoutStudent());
+  }
 }
