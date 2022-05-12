@@ -11,14 +11,11 @@ export const asyncRegisterAdmin = (formData) => {
             } else {
                 alert(`Successfully created admin for ${adminResult.academy.name}`)
                 dispatch(setAdmin(adminResult))              
-                console.log(adminResult)
             }
        })
         .catch((err) => {
             console.log(err.message)
         })
-        
-         console.log('RegisterForm',formData)
     }
 }
 
