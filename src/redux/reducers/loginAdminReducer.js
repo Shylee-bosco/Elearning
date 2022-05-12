@@ -5,6 +5,9 @@ const loginAdminReducer = (state = loginInitialValue, action) => {
         case 'LOGIN_ADMIN': {
             return { ...action.payload }
         }
+        case 'LOGOUT_ADMIN': {
+            return loginInitialValue
+        }
         default: {
             return {...state}
         }
