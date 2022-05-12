@@ -1,6 +1,7 @@
 import axios from "axios"
 import { asyncDetailsAdmin } from "./adminDetailsAction"
 import { asyncCourseDetails } from "./CourseDetailsAction"
+import { asyncLectureDetails } from "./LectureDetailsAction"
 import { asyncDetailsStudent } from "./studentDetailsAction"
 
 export const asyncLoginAdmin = (formData) => {
@@ -14,11 +15,11 @@ export const asyncLoginAdmin = (formData) => {
                 alert(`Successfully Logged in`)
                 dispatch(loginAdmin(adminResult))
                 localStorage.setItem('token', adminResult.token)
-                console.log('adminLoginResult', adminResult)
+                localStorage.setItem('role', 'admin')
                 dispatch(asyncCourseDetails())
-                // dispatch(asyncDetailsAdmin())
+                dispatch(asyncDetailsAdmin())
                 dispatch(asyncDetailsStudent())
-                dispatch(isAdmin(true));
+                // dispatch(isAdmin(true));
             }
         })
         .catch((err) => {
@@ -35,6 +36,17 @@ export const loginAdmin = (adminDetails) => {
     }
 }
 
-export const isAdmin = (state=false) => {
-    return state
+export const logoutAdmin = () => {
+    return {
+        type: 'LOGOUT_ADMIN'
+    }
 }
+export const asyncAdminLogout =() => {
+    //remove token
+    //empty studentdetials
+    // empty course details
+  
+    return (dispatch) => {
+        dispatch(logoutAdmin());
+    }
+  }
