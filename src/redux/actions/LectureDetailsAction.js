@@ -1,5 +1,4 @@
 import axios from "axios"
-// import swal from 'sweetalert';
 
 const url = 'https://dct-e-learning-app.herokuapp.com/api/courses'
 
@@ -58,10 +57,10 @@ export const lectureDetails = (lecturesDetail) => {
     }
 }
 
-export const asyncUpdateLecture = (id, courseId) => {
+export const asyncUpdateLecture = (formData, lectureId, courseId) => {
 
     return (dispatch) => {
-        axios.put(`${url}/${courseId}/lectures/${id}`, {
+        axios.put(`${url}/${courseId}/lectures/${lectureId}`, formData, {
                 headers: {
                     'Authorization': localStorage.getItem('token')
                 }
