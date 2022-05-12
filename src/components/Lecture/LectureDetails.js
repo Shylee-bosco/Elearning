@@ -6,12 +6,13 @@ import {
   IconButton,
   Typography,
 } from "@material-ui/core";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
 import UpdateLecture from "./UpdateLecture";
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,36 +44,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const LectureDetails = ({ handleDelete, ele }) => {
+const LectureDetails = ({ handleDelete, ele, lectureId }) => {
+  
   const classes = useStyles();
   const theme = useTheme();
-
+  
+  
   const [modalShow, setModalShow] = useState(false);
 
-  const lectureDetails = useSelector((state) => {
-    return state.lectureDetails;
-  });
-
-  console.log("LectureDetailsIn details Form", lectureDetails);
-
+  const lnk = ele.assetURL
+  
   return (
     <>
       <Container>
         <Card className={classes.root}>
           <div className={classes.details}>
             <CardContent className={classes.content}>
-              {/* <Typography component="h5" variant="h5">
-                                {ele.title}
-                            </Typography>   
-                            <Typography variant="subtitle1" color="textSecondary">
-                                <span>  </span> 
-                            </Typography>
-                            <Typography variant="subtitle1" color="textSecondary">
-                                <span>  </span> 
-                            </Typography>
-                            <Typography variant="subtitle1" color="textSecondary">
-                                <span>  </span> { ele.duration } <span> Months </span>
-                            </Typography> */}
+                  <Typography component="h5" variant="h5">
+                      {ele.title}
+                  </Typography>   
               <br />
               <div className={classes.controls}>
                 <IconButton>
@@ -83,9 +73,10 @@ const LectureDetails = ({ handleDelete, ele }) => {
                 </IconButton>
                 {
                   <UpdateLecture
+                    lectureId={lectureId}
                     show={modalShow}
                     onHide={() => setModalShow(false)}
-                    // handleSave={handleSave}
+                    details={ele}
                   />
                 }
                 <IconButton>
@@ -94,6 +85,12 @@ const LectureDetails = ({ handleDelete, ele }) => {
                     onClick={() => {
                       handleDelete();
                     }}
+                  />
+                </IconButton>
+                <IconButton>
+                  <PlayArrowIcon
+                    color={"success"}
+                    onClick={() => window.open(encodeURI(lnk), "_blank")}
                   />
                 </IconButton>
               </div>
