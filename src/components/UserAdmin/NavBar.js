@@ -14,10 +14,15 @@ import StudentIndividualDetail from "../Student/StudentIndividualDetail";
 import StudentLogin from '../Student/LoginStudentForm'
 import LecturesContainer from "../Lecture/LecturesContainer";
 import EnrolledCoursesContainer from "../EnrolledCouses/EnrolledCoursesContainer";
+import { useDispatch } from "react-redux";
+import { asyncAdminLogout, loginAdmin, logoutAdmin } from "../../redux/actions/loginAdminAction";
+import loginAdminReducer from "../../redux/reducers/loginAdminReducer";
+import { asyncStudentLogout, logoutStudent } from "../../redux/actions/studentDetailsAction";
 
 const NavBar = (props) => {
     const { userLoggedIn, handleAuth } = props
-    const [ role, setRole ] = useState('student');
+    const [ role, setRole ] = useState('');
+    const dispatch = useDispatch()
 
     const handleRoleChange = (e) => {
       const result = (e.target.value)
@@ -45,11 +50,14 @@ const NavBar = (props) => {
                                 { role === 'student' && <NavMenu><Link to='/studentDetails'>Student Details</Link></NavMenu> }
                                 
                                 <NavMenu><Link onClick={() => {
+                                    dispatch(asyncStudentLogout());
+                                    dispatch(asyncAdminLogout());
                                     localStorage.removeItem('token');
+                                    localStorage.removeItem('role')
                                     alert('successfully logged out');
                                     handleAuth();
                                     props.history.push('/');
-                                }} > 
+                               }} > 
                                 Logout
                                 </Link></NavMenu>   
                         </>           
