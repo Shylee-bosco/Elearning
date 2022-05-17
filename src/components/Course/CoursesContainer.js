@@ -5,6 +5,7 @@ import AddCourse from "./AddCourse";
 import { useDispatch, useSelector } from "react-redux";
 import { asyncCourseDetails, asyncDeleteCourse, asyncUpdateCourse } from "../../redux/actions/CourseDetailsAction";
 import CourseDetails from "./CourseDetails";
+import { asyncLectureDetails } from "../../redux/actions/LectureDetailsAction";
 
 const CoursesContainer = (props) => {
   const { handleUpdate } = props;
@@ -31,18 +32,30 @@ const CoursesContainer = (props) => {
     return state.coursesDetails;
   });
 
+  const adminDetails = useSelector((state) => {
+    return state.adminDetails;
+  });
+
+  const lectureDetails = useSelector((state) => {
+    return state.lecturesDetails;
+  });
+
+  console.log('lectureDetails', lectureDetails)
   useEffect(() => {
     dispatch(asyncCourseDetails())
-  }, [])
+    dispatch(asyncLectureDetails(adminDetails._id))
+  },[])
 
+  
   const handleDelete = (id) => {
     const confirmDelete = window.confirm(`Are you sure you want to delete?`);
     if (confirmDelete) {
       dispatch(asyncDeleteCourse(id));
     }
   };
+
   return (
-    <Grid container className={classes.root} spacing={2}>
+    <Grid container className={classes.root} spacing={2} >
       <Grid item xs={12}>
         <Grid container justifyContent="center" spacing="5">
           {coursesDetails.length > 0 &&
@@ -54,12 +67,15 @@ const CoursesContainer = (props) => {
                     handleDelete(ele._id);
                   }}
                   handleUpdate={handleUpdate}
+                  lectureDetails={lectureDetails}
                 />
               </Grid>
             ))}
-          <Grid>
-            <AddCourse />
-          </Grid>
+            { adminDetails.role === 'admin' && 
+                <Grid>
+                  <AddCourse />
+                </Grid>
+            }
         </Grid>
       </Grid>
     </Grid>
