@@ -1,7 +1,7 @@
 import axios from "axios"
 import isAdminFlag from "../reducers/commonReducer"
 import isAdmin from "../reducers/commonReducer"
-import { logoutAdmin } from "./loginAdminAction"
+import { logoutAdmin } from "./adminDetailsAction"
 
 export const asyncLoginStudent = (formData) => {
     return (dispatch) => {
