@@ -2,7 +2,7 @@ import React from "react"
 import { useState } from "react"
 import { Form, Button } from 'react-bootstrap'
 import { useDispatch } from "react-redux"
-import { asyncLoginAdmin } from "../../redux/actions/loginAdminAction"
+import { asyncLoginAdmin } from "../../redux/actions/adminDetailsAction"
 
 const LoginAdminForm = (props) => {
     const dispatch = useDispatch()
