@@ -53,6 +53,10 @@ const LectureDetails = ({ handleDelete, ele, lectureId }) => {
   const [modalShow, setModalShow] = useState(false);
 
   const lnk = ele.assetURL
+
+  const adminDetails = useSelector((state) => {
+    return state.adminDetails;
+  });
   
   return (
     <>
@@ -65,7 +69,10 @@ const LectureDetails = ({ handleDelete, ele, lectureId }) => {
                   </Typography>   
               <br />
               <div className={classes.controls}>
-                <IconButton>
+                {
+                  adminDetails.role === 'admin' && 
+                  <>
+                  <IconButton>
                   <EditIcon
                     color="primary"
                     onClick={() => setModalShow(true)}
@@ -87,6 +94,9 @@ const LectureDetails = ({ handleDelete, ele, lectureId }) => {
                     }}
                   />
                 </IconButton>
+                </>
+                }
+                
                 <IconButton>
                   <PlayArrowIcon
                     color={"success"}
