@@ -1,7 +1,7 @@
 import React from "react"
 import { useState } from "react"
 import { Form, Button } from 'react-bootstrap'
-import { asyncRegisterAdmin } from '../../redux/actions/registerAdminAction'
+import { asyncRegisterAdmin } from '../../redux/actions/adminDetailsAction'
 import { useDispatch } from "react-redux"
 import RegistrationForm from "../CommonComponents/RegistrationForm"
 
