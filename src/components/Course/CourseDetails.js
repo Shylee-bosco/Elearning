@@ -72,6 +72,7 @@ const CourseDetails = ({ handleDelete, ele, handleUpdate }) => {
 // })
 // console.log("isAdmin",isAdmin);
 
+
   const handleEnroll = () => {
     
   }
