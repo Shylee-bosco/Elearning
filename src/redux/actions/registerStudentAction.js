@@ -30,4 +30,3 @@ export const setStudent = (stuDetails) => {
         payload: stuDetails
     }
 }
-
