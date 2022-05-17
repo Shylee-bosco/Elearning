@@ -1,4 +1,5 @@
 import axios from "axios"
+// import swal from 'sweetalert';
 
 const url = 'https://dct-e-learning-app.herokuapp.com/api/courses'
 
