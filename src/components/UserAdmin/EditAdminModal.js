@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { useDispatch } from "react-redux";
-import { asyncEditAdmin } from "../../redux/actions/adminEditAction";
+import { asyncEditAdmin } from "../../redux/actions/adminDetailsAction";
 
 const EditAdminModal = (props) => {
   const { onHide } = props
