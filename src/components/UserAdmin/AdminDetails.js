@@ -2,8 +2,8 @@ import { SatelliteTwoTone } from "@material-ui/icons";
 import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { asyncEditAdmin } from "../../redux/actions/adminEditAction";
-import { asyncLoginAdmin } from "../../redux/actions/loginAdminAction";
+import { asyncEditAdmin } from "../../redux/actions/adminDetailsAction";
+import { asyncLoginAdmin } from "../../redux/actions/adminDetailsAction";
 import { asyncDetailsStudent } from "../../redux/actions/studentDetailsAction";
 import EditAdminModal from '../UserAdmin/EditAdminModal'
 
@@ -18,7 +18,7 @@ const AdminDetails = (props) => {
     const isAdmin = useSelector((state) => { 
         return state.isAdmin
     })
-    console.log("isAdmin",isAdmin);
+
     useEffect(() => {
         dispatch(asyncDetailsStudent())
     }, [])
