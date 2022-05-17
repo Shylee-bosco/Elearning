@@ -78,6 +78,11 @@ const LectureForm = (props) => {
       course: courseName,
       isDelete: isDelete,
     };
+
+  //   const redirect = () => {
+  //     props.push('/lecturesContainer')
+  // }
+
     dispatch(asyncAddLecture(formData, id));
     onHide();
     setTitle("");
