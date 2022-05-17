@@ -38,8 +38,6 @@ const LecturesContainer = (props) => {
     dispatch(asyncLectureDetails(adminDetails._id))
   },[])
 
-  console.log('detailsLectures-----', detailsLecture)
-
 
   const handleDelete = (courseId, id) => {
     const confirmDelete = window.confirm(`Are you sure you want to delete?`);
@@ -54,7 +52,7 @@ const LecturesContainer = (props) => {
           {detailsLecture.length > 0 &&
             detailsLecture.map((ele) => (
               <Grid key={ele} item>
-                {console.log(ele.course)}
+                {console.log('LectureDetails', ele.course)}
                   <LectureDetails
                     lectureId={ele._id}
                     ele={ele}
